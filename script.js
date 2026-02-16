@@ -106,4 +106,72 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   showSlide(0);
-});
+}); 
+
+// CHAVE PIX
+
+function copiarPix() {
+    const chave = document.getElementById("pixKey").innerText;
+
+    navigator.clipboard.writeText(chave)
+        .then(() => {
+            const feedback = document.getElementById("copy-feedback");
+            feedback.textContent = "✅ Chave copiada com sucesso!";
+
+            setTimeout(() => {
+                feedback.textContent = "";
+            }, 3000);
+        })
+        .catch(() => {
+            alert("Erro ao copiar. Copie manualmente.");
+        });
+}
+
+function alternarPix() {
+    const chave = document.getElementById("pix-chave-content");
+    const qr = document.getElementById("pix-qr-content");
+    const botao = document.getElementById("togglePixBtn");
+
+    if (qr.classList.contains("hidden")) {
+        chave.classList.add("hidden");
+        qr.classList.remove("hidden");
+        botao.textContent = "Ver chave Pix";
+    } else {
+        qr.classList.add("hidden");
+        chave.classList.remove("hidden");
+        botao.textContent = "Ver QR Code";
+    }
+}
+
+// modal
+
+function abrirModal() {
+    document.getElementById("modalAjuda").classList.add("active");
+    document.body.style.overflow = "hidden"; 
+}
+
+function fecharModal() {
+    document.getElementById("modalAjuda").classList.remove("active");
+    document.body.style.overflow = "auto"; 
+}
+
+function irParaPix(event) {
+    if(event) event.preventDefault();
+
+    fecharModal();
+
+    setTimeout(() => {
+        const seçãoPix = document.querySelector(".como-ajudar-pix");
+        
+        if (seçãoPix) {
+            seçãoPix.scrollIntoView({ 
+                behavior: "smooth", 
+                block: "center" 
+            });
+
+            seçãoPix.style.transition = "0.5s";
+            seçãoPix.style.boxShadow = "0 0 20px rgba(186, 79, 97, 0.4)";
+            setTimeout(() => seçãoPix.style.boxShadow = "none", 2000);
+        }
+    }, 300); 
+}
